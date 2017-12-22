@@ -1,0 +1,41 @@
+CREATE TABLE "user"
+(
+  id         SERIAL               NOT NULL
+    CONSTRAINT user_pkey
+    PRIMARY KEY,
+  first_name TEXT                 NOT NULL,
+  last_name  TEXT                 NOT NULL,
+  email      TEXT                 NOT NULL,
+  auth_token TEXT,
+  is_enabled BOOLEAN DEFAULT TRUE NOT NULL
+);
+
+CREATE UNIQUE INDEX user_email_uindex
+  ON "user" (email);
+
+CREATE TABLE "order"
+(
+  id         SERIAL  NOT NULL
+    CONSTRAINT order_pkey
+    PRIMARY KEY,
+  user_id    INTEGER NOT NULL,
+  session_id INTEGER NOT NULL,
+  request    TEXT    NOT NULL
+);
+
+CREATE TABLE session
+(
+  id        SERIAL               NOT NULL
+    CONSTRAINT session_pkey
+    PRIMARY KEY,
+  user_id   INTEGER              NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE NOT NULL,
+  started   TIMESTAMP DEFAULT now(),
+  ended     TIMESTAMP
+);
+
+CREATE UNIQUE INDEX session_id_uindex
+  ON session (id);
+
+
+
