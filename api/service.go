@@ -44,15 +44,14 @@ func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, us
 //Decoders
 
 func decodePostNewUserRequest(_ context.Context, r *http.Request) (request interface{}, err error) {
-	r.Header.Get
-	if !ok {
-		return nil, ErrBadRouting
-	}
-	u, err := IsValidUrl(url)
+	decoder := json.NewDecoder(r.Body)
+	var u postNewUserRequest
+	err = decoder.Decode(&u)
+	defer r.Body.Close()
 	if err != nil {
 		return nil, err
 	} else {
-		return postWebAddressRequest{Url: u}, nil
+		return u, nil
 	}
 }
 
