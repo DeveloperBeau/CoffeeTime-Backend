@@ -22,8 +22,8 @@ func RunAPIOnRouter(db db.Handler) http.Handler {
 	flag.Parse()
 
 	r.Methods("POST").Path("/addUser/{webAddress}").Handler(httptransport.NewServer(
-		e.PostWebAddressEndpoint,
-		decodePostWebAddressRequest,
+		e.PostNewUserEndpoint,
+		decodePostNewUserRequest,
 		encodeResponse,
 	))
 
