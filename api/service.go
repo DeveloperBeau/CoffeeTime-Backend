@@ -16,14 +16,18 @@ var (
 	ErrBadRouting = errors.New("inconsistent mapping between route and handler (programmer error)")
 )
 
+// Service : Service functions for each endpoint
 type Service interface {
 	PostNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error
 }
 
 var (
-	ErrCorruptData   = errors.New("Data error - Please verify your details are correct")
-	ErrAlreadyExists = errors.New("already exists")
-	ErrNotFound      = errors.New("not found")
+	// ErrCorruptData : Corrupt data entry err
+	ErrCorruptData = errors.New("Data error - Please verify your details are correct")
+	// ErrAlreadyExists : already exists error
+	ErrAlreadyExists = errors.New("Input error - Already Exists")
+	// ErrNotFound : Not found error
+	ErrNotFound = errors.New("Input error - not found")
 )
 
 type e interface {
@@ -50,9 +54,8 @@ func decodePostNewUserRequest(_ context.Context, r *http.Request) (request inter
 	defer r.Body.Close()
 	if err != nil {
 		return nil, err
-	} else {
-		return u, nil
 	}
+	return u, nil
 }
 
 //Encoders

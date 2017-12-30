@@ -11,11 +11,13 @@ import (
 
 var s serviceHandler
 
+// Run : Boots up server
 func Run(endpoint string, db db.Handler) error {
 	r := RunAPIOnRouter(db)
 	return http.ListenAndServe(endpoint, r)
 }
 
+// RunAPIOnRouter : boots up router
 func RunAPIOnRouter(db db.Handler) http.Handler {
 	r := mux.NewRouter()
 	e := MakeServerEndpoints(s, db)
