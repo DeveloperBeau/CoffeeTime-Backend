@@ -83,7 +83,7 @@ func codeFrom(err error) int {
 	switch err {
 	case ErrNotFound:
 		return http.StatusNotFound
-	case ErrAlreadyExists, ErrCorruptData:
+	case ErrAlreadyExists, ErrCorruptData, db.ErrUserExists:
 		return http.StatusBadRequest
 	default:
 		return http.StatusInternalServerError

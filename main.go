@@ -18,7 +18,7 @@ func main() {
 		log.Fatal(err)
 	}
 	connectionString := "user=postgres dbname=coffeetime sslmode=disable"
-	handler, dbErr := db.MakeDatabaseHandler(connectionString)
+	handler, dbErr := db.MakeDatabaseHandler(connectionString, false)
 	if dbErr != nil {
 		log.Fatal(err)
 	}

@@ -7,6 +7,6 @@ type Handler interface {
 }
 
 //Database Handler factory function
-func MakeDatabaseHandler(connection string) (Handler, error) {
-	return NewSQLHandler(connection)
+func MakeDatabaseHandler(connection string, isProduction bool) (Handler, error) {
+	return NewSQLHandler(connection, isProduction)
 }
