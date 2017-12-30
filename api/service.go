@@ -34,7 +34,7 @@ type serviceHandler struct{}
 
 func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error {
 	newUser := model.User{FirstName: user.FirstName, LastName: user.LastName, Email: user.Email, Token: user.Token}
-	err := handler.Add(newUser)
+	err := handler.AddUser(newUser)
 	if err != nil {
 		log.Println(err)
 	}

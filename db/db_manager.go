@@ -3,7 +3,7 @@ package db
 import "CoffeeTime-Go/db/model"
 
 type Handler interface {
-	Add(model.User) error
+	AddUser(model.User) error
 }
 
 //Database Handler factory function
