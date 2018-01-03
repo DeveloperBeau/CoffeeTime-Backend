@@ -1,3 +1,4 @@
 {
-  "webserver": "localhost:8181"
+  "webserver": "localhost:8181",
+  "isProduction": false
 }
