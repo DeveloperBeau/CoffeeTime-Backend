@@ -19,6 +19,10 @@ var (
 // Service : Service functions for each endpoint
 type Service interface {
 	PostNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error
+	PostStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) error
+	PostEndSession(ctx context.Context, handler db.Handler, session postEndSessionRequest) error
+	GetSession(ctx context.Context, handler db.Handler, session getSessionRequest) error
+	PostOrder(ctx context.Context, handler db.Handler, session postOrderRequest) error
 }
 
 var (
@@ -45,6 +49,22 @@ func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, us
 	return err
 }
 
+func (sh serviceHandler) PostStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) error {
+	return nil
+}
+
+func (sh serviceHandler) PostEndSession(ctx context.Context, handler db.Handler, session postEndSessionRequest) error {
+	return nil
+}
+
+func (sh serviceHandler) GetSession(ctx context.Context, handler db.Handler, session getSessionRequest) error {
+	return nil
+}
+
+func (sh serviceHandler) PostOrder(ctx context.Context, handler db.Handler, session postOrderRequest) error {
+	return nil
+}
+
 //Decoders
 
 func decodePostNewUserRequest(_ context.Context, r *http.Request) (request interface{}, err error) {
@@ -56,6 +76,50 @@ func decodePostNewUserRequest(_ context.Context, r *http.Request) (request inter
 		return nil, err
 	}
 	return u, nil
+}
+
+func decodePostStartSessionRequest(_ context.Context, r *http.Request) (request interface{}, err error) {
+	decoder := json.NewDecoder(r.Body)
+	var s postStartSessionRequest
+	err = decoder.Decode(&s)
+	defer r.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
+func decodePostEndSessionRequest(_ context.Context, r *http.Request) (request interface{}, err error) {
+	decoder := json.NewDecoder(r.Body)
+	var s postEndSessionRequest
+	err = decoder.Decode(&s)
+	defer r.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
+func decodeGetSessionRequest(_ context.Context, r *http.Request) (request interface{}, err error) {
+	decoder := json.NewDecoder(r.Body)
+	var s getSessionRequest
+	err = decoder.Decode(&s)
+	defer r.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
+func decodePostOrderRequest(_ context.Context, r *http.Request) (request interface{}, err error) {
+	decoder := json.NewDecoder(r.Body)
+	var s postOrderRequest
+	err = decoder.Decode(&s)
+	defer r.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return s, nil
 }
 
 //Encoders

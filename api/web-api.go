@@ -9,6 +9,19 @@ import (
 	"github.com/gorilla/mux"
 )
 
+const (
+	postMethod = "POST"
+	getMethod  = "GET"
+)
+
+const (
+	addUserPath      = "/newUser"
+	startSessionPath = "/startSession/{id}"
+	stopSessionPath  = "/stopSession"
+	sessionPath      = "/session"
+	orderPath        = "/order/{id}"
+)
+
 var s serviceHandler
 
 // Run : Boots up server
@@ -23,9 +36,33 @@ func RunAPIOnRouter(db db.Handler) http.Handler {
 	e := MakeServerEndpoints(s, db)
 	flag.Parse()
 
-	r.Methods("POST").Path("/addUser").Handler(httptransport.NewServer(
+	r.Methods(postMethod).Path(addUserPath).Handler(httptransport.NewServer(
 		e.PostNewUserEndpoint,
 		decodePostNewUserRequest,
+		encodeResponse,
+	))
+
+	r.Methods(postMethod).Path(startSessionPath).Handler(httptransport.NewServer(
+		e.PostStartSessionEndpoint,
+		decodePostStartSessionRequest,
+		encodeResponse,
+	))
+
+	r.Methods(postMethod).Path(stopSessionPath).Handler(httptransport.NewServer(
+		e.PostEndSessionEndpoint,
+		decodePostEndSessionRequest,
+		encodeResponse,
+	))
+
+	r.Methods(getMethod).Path(sessionPath).Handler(httptransport.NewServer(
+		e.GetSessionEndpoint,
+		decodeGetSessionRequest,
+		encodeResponse,
+	))
+
+	r.Methods(postMethod).Path(orderPath).Handler(httptransport.NewServer(
+		e.PostOrderEndpoint,
+		decodeGetSessionRequest,
 		encodeResponse,
 	))
 
