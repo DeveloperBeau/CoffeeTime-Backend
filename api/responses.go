@@ -23,9 +23,9 @@ type postStartSessionRequest struct {
 
 //newSession Response struct
 type postStartSessionResponse struct {
-	SID      string `json:"sessionID,omitempty"`
-	Err      error  `json:"err,omitempty"`
-	IsActive bool   `json:"isActive,omitempty"`
+	SID    string `json:"sessionID,omitempty"`
+	Err    error  `json:"err,omitempty"`
+	Status string `json:"status,omitempty"`
 }
 
 func (r postStartSessionResponse) error() error { return r.Err }
@@ -37,9 +37,8 @@ type postEndSessionRequest struct {
 
 //endSession Response struct
 type postEndSessionResponse struct {
-	ID       string `json:"sessionID,omitempty"`
-	Err      error  `json:"err,omitempty"`
-	IsActive bool   `json:"isActive,omitempty"`
+	Status string `json:"status,omitempty"`
+	Err    error  `json:"err,omitempty"`
 }
 
 func (r postEndSessionResponse) error() error { return r.Err }
