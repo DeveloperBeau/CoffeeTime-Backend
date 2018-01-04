@@ -16,7 +16,7 @@ var (
 	ErrUserExists = errors.New("error - User Already Exists")
 )
 
-// AddUser: adds a user to the database
+// AddUser : adds a user to the database
 func (handler SQLHandler) AddUser(u model.User) error {
 	existingUser, err := handler.getUser(u.Email)
 	if existingUser == nil {
@@ -34,4 +34,17 @@ func (handler *SQLHandler) getUser(e string) (*model.User, error) {
 	} else {
 		return nil, nil
 	}
+}
+
+func (handler *SQLHandler) StartSession(model.Session) (string, error) {
+	return "", nil
+}
+func (handler *SQLHandler) EndSession() error {
+	return nil
+}
+func (handler *SQLHandler) Session() *model.Session {
+	return nil
+}
+func (handler *SQLHandler) Order(model.Order) error {
+	return nil
 }
