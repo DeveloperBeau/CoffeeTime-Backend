@@ -10,19 +10,20 @@ type postNewUserRequest struct {
 
 //newUser Response struct
 type postNewUserResponse struct {
-	Err error `json:"err,omitempty"`
+	UID string `json:"userID,omitempty"`
+	Err error  `json:"err,omitempty"`
 }
 
 func (r postNewUserResponse) error() error { return r.Err }
 
 //newSession Request struct
 type postStartSessionRequest struct {
-	ID string `json:"id"`
+	UID string `json:"userID"`
 }
 
 //newSession Response struct
 type postStartSessionResponse struct {
-	ID       string `json:"sessionID,omitempty"`
+	SID      string `json:"sessionID,omitempty"`
 	Err      error  `json:"err,omitempty"`
 	IsActive bool   `json:"isActive,omitempty"`
 }
@@ -31,7 +32,7 @@ func (r postStartSessionResponse) error() error { return r.Err }
 
 //endSession Request struct
 type postEndSessionRequest struct {
-	ID string `json:"id"`
+	UID string `json:"userID"`
 }
 
 //endSession Response struct
@@ -45,19 +46,19 @@ func (r postEndSessionResponse) error() error { return r.Err }
 
 //session Request struct
 type getSessionRequest struct {
-	ID string `json:"id"`
+	UID string `json:"userID"`
 }
 
 //session Response struct, users who respond to a new session will receive this
 type getUserSessionResponse struct {
-	ID    string `json:"sessionId,omitempty"`
+	SID   string `json:"sessionId,omitempty"`
 	Err   error  `json:"err,omitempty"`
 	Order order  `json:"yourOrder,omitempty"`
 }
 
 //session Response for whole group struct, only the person who started the session will receive this
 type getGroupSessionResponse struct {
-	ID     string  `json:"sessionId,omitempty"`
+	SID    string  `json:"sessionId,omitempty"`
 	Err    error   `json:"err,omitempty"`
 	Orders []order `json:"orders,omitempty"`
 }
@@ -73,7 +74,7 @@ type postOrderRequest struct {
 
 //PostOrderResponse Response struct
 type postOrderResponse struct {
-	ID           string `json:"id,omitempty"`
+	OID          string `json:"orderID,omitempty"`
 	Err          error  `json:"err,omitempty"`
 	Result       string `json:"response,omitempty"`
 	IsSuccessful bool   `json:"isSuccessful,omitempty"`
@@ -83,6 +84,6 @@ func (r postOrderResponse) error() error { return r.Err }
 
 //Order generic struct
 type order struct {
-	UserID  string `json:"userID"`
+	UID     string `json:"userID"`
 	Request string `json:"request"`
 }

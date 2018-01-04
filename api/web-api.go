@@ -2,7 +2,6 @@ package api
 
 import (
 	"CoffeeTime-Go/db"
-	"flag"
 	"net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"
@@ -16,10 +15,10 @@ const (
 
 const (
 	addUserPath      = "/newUser"
-	startSessionPath = "/startSession/{id}"
+	startSessionPath = "/startSession/{UID}"
 	stopSessionPath  = "/stopSession"
 	sessionPath      = "/session"
-	orderPath        = "/order/{id}"
+	orderPath        = "/order/{UID}"
 )
 
 var s serviceHandler
@@ -32,10 +31,14 @@ func Run(endpoint string, db db.Handler) error {
 
 // RunAPIOnRouter : boots up router
 func RunAPIOnRouter(db db.Handler) http.Handler {
-	r := mux.NewRouter()
-	e := MakeServerEndpoints(s, db)
-	flag.Parse()
+	r := router(db)
 
+	return r
+}
+
+func router(db db.Handler) (r *mux.Router) {
+	r = mux.NewRouter()
+	e := MakeServerEndpoints(s, db)
 	r.Methods(postMethod).Path(addUserPath).Handler(httptransport.NewServer(
 		e.PostNewUserEndpoint,
 		decodePostNewUserRequest,
@@ -62,9 +65,8 @@ func RunAPIOnRouter(db db.Handler) http.Handler {
 
 	r.Methods(postMethod).Path(orderPath).Handler(httptransport.NewServer(
 		e.PostOrderEndpoint,
-		decodeGetSessionRequest,
+		decodePostOrderRequest,
 		encodeResponse,
 	))
-
-	return r
+	return
 }
