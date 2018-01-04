@@ -9,4 +9,5 @@ type Session struct {
 	IsActive bool
 	Started  time.Time
 	Ended    time.Time
+	Orders   []Order
 }

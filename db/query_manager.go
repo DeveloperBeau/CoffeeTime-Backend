@@ -1,9 +1,9 @@
 package db
 
 import (
-	"sync"
-	"fmt"
 	"bytes"
+	"fmt"
+	"sync"
 )
 
 type QueryManager struct {
@@ -15,15 +15,14 @@ var once sync.Once
 
 func GetQueryManager(isProduction bool) *QueryManager {
 	once.Do(func() {
-		instance = &QueryManager{isProduction:isProduction}
+		instance = &QueryManager{isProduction: isProduction}
 	})
 	return instance
 }
 
 func (q QueryManager) getAllFromUserWithEmail(e string) string {
-	return GetAllFromUser() + whereClause(false, Where{field:"email", value: e})
+	return GetAllFromUser() + whereClause(false, Where{field: "email", value: e})
 }
-
 
 type Where struct {
 	field string
