@@ -39,12 +39,12 @@ func (handler *SQLHandler) getUser(e string) (*model.User, error) {
 func (handler *SQLHandler) StartSession(model.Session) (string, error) {
 	return "", nil
 }
-func (handler *SQLHandler) EndSession() error {
+func (handler *SQLHandler) EndSession(UID string) error {
 	return nil
 }
-func (handler *SQLHandler) Session() *model.Session {
+func (handler *SQLHandler) Session(UID string) *model.Session {
 	return nil
 }
-func (handler *SQLHandler) Order(model.Order) error {
-	return nil
+func (handler *SQLHandler) Order(model.Order) (string, error) {
+	return "", nil
 }

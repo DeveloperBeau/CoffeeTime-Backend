@@ -4,8 +4,8 @@ import "time"
 
 //Session data model
 type Session struct {
-	ID       int
-	UserID   int
+	ID       string
+	UserID   string
 	IsActive bool
 	Started  time.Time
 	Ended    time.Time

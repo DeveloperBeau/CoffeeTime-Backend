@@ -6,9 +6,9 @@ import "CoffeeTime-Go/db/model"
 type Handler interface {
 	AddUser(model.User) error
 	StartSession(model.Session) (string, error)
-	EndSession() (string, error)
-	Session() *model.Session
-	Order(model.Order) error
+	EndSession(string) (error)
+	Session(string) *model.Session
+	Order(model.Order) (string, error)
 }
 
 // MakeDatabaseHandler factory function
