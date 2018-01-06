@@ -1,5 +1,7 @@
 package api
 
+import "CoffeeTime-Go/db/model"
+
 //newUser Request struct
 type postNewUserRequest struct {
 	FirstName string `json:"firstName"`
@@ -52,14 +54,14 @@ type getSessionRequest struct {
 type getUserSessionResponse struct {
 	SID   string `json:"sessionId,omitempty"`
 	Err   error  `json:"err,omitempty"`
-	Order order  `json:"yourOrder,omitempty"`
+	Order model.Order  `json:"yourOrder,omitempty"`
 }
 
 //session Response for whole group struct, only the person who started the session will receive this
 type getGroupSessionResponse struct {
 	SID    string  `json:"sessionId,omitempty"`
 	Err    error   `json:"err,omitempty"`
-	Orders []order `json:"orders,omitempty"`
+	Orders []model.Order `json:"orders,omitempty"`
 }
 
 func (r getUserSessionResponse) error() error  { return r.Err }
@@ -67,22 +69,13 @@ func (r getGroupSessionResponse) error() error { return r.Err }
 
 //PostOrderRequest Request struct
 type postOrderRequest struct {
-	SessionID string `json:"SessionID"`
-	Order     order  `json:"order"`
+	Order     model.Order  `json:"order"`
 }
 
 //PostOrderResponse Response struct
 type postOrderResponse struct {
 	OID          string `json:"orderID,omitempty"`
 	Err          error  `json:"err,omitempty"`
-	Result       string `json:"response,omitempty"`
-	IsSuccessful bool   `json:"isSuccessful,omitempty"`
 }
 
 func (r postOrderResponse) error() error { return r.Err }
-
-//Order generic struct
-type order struct {
-	UID     string `json:"userID"`
-	Request string `json:"request"`
-}

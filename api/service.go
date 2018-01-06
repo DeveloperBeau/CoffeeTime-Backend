@@ -8,6 +8,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"time"
 )
 
 var (
@@ -19,10 +20,10 @@ var (
 // Service : Service functions for each endpoint
 type Service interface {
 	PostNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error
-	PostStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) error
+	PostStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) (string, error)
 	PostEndSession(ctx context.Context, handler db.Handler, session postEndSessionRequest) error
-	GetSession(ctx context.Context, handler db.Handler, session getSessionRequest) error
-	PostOrder(ctx context.Context, handler db.Handler, session postOrderRequest) error
+	GetSession(ctx context.Context, handler db.Handler, session getSessionRequest) (interface{}, error)
+	PostOrder(ctx context.Context, handler db.Handler, session postOrderRequest) (*postOrderResponse, error)
 }
 
 var (
@@ -31,7 +32,9 @@ var (
 	// ErrAlreadyExists : already exists error
 	ErrAlreadyExists = errors.New("Input error - Already Exists")
 	// ErrNotFound : Not found error
-	ErrNotFound = errors.New("Input error - not found")
+	ErrNotFound = errors.New("Input error - Not found")
+	// ErrSessionNotFound : No Session is active
+	ErrSessionNotFound = errors.New("Session error - No session is active")
 )
 
 type e interface {
@@ -49,20 +52,39 @@ func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, us
 	return err
 }
 
-func (sh serviceHandler) PostStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) error {
-	return nil
+func (sh serviceHandler) PostStartSession(ctx context.Context, handler db.Handler, sr postStartSessionRequest) (string, error) {
+	ns := model.Session{UserID: sr.UID, IsActive: true, Started: time.Now(), Orders: nil}
+	// TODO: Need to setup sending push notifications to devices. 
+	res, err := handler.StartSession(ns)
+	return res, err
 }
 
-func (sh serviceHandler) PostEndSession(ctx context.Context, handler db.Handler, session postEndSessionRequest) error {
-	return nil
+func (sh serviceHandler) PostEndSession(ctx context.Context, handler db.Handler, sr postEndSessionRequest) error {
+	err := handler.EndSession(sr.UID)
+	return err
 }
 
-func (sh serviceHandler) GetSession(ctx context.Context, handler db.Handler, session getSessionRequest) error {
-	return nil
+func (sh serviceHandler) GetSession(ctx context.Context, handler db.Handler, sr getSessionRequest) (interface{}, error) {
+	s := handler.Session(sr.UID)
+	if sr.UID == s.UserID {
+		gs := getGroupSessionResponse{SID: s.ID, Orders: s.Orders}
+		return gs, nil
+	} else if len(s.Orders) == 1 {
+		us := getUserSessionResponse{SID: s.ID, Order: s.Orders[0]}
+		return us, nil
+	}
+	return nil, ErrSessionNotFound
 }
 
-func (sh serviceHandler) PostOrder(ctx context.Context, handler db.Handler, session postOrderRequest) error {
-	return nil
+func (sh serviceHandler) PostOrder(ctx context.Context, handler db.Handler, o postOrderRequest) (*postOrderResponse, error) {
+
+	order := o.Order
+	oID, e := handler.Order(order)
+	if oID != "" {
+		por := postOrderResponse{OID:oID}
+		return &por, e
+	}
+	return nil, e
 }
 
 //Decoders
