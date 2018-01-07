@@ -33,7 +33,9 @@ CREATE TABLE session
   id        SERIAL               NOT NULL
     CONSTRAINT session_pkey
     PRIMARY KEY,
-  user_id   INTEGER              NOT NULL,
+  user_id   INTEGER              NOT NULL
+    CONSTRAINT session___fk_userid
+    REFERENCES "user",
   is_active BOOLEAN DEFAULT TRUE NOT NULL,
   started   TIMESTAMP DEFAULT now(),
   ended     TIMESTAMP
@@ -41,6 +43,7 @@ CREATE TABLE session
 
 CREATE UNIQUE INDEX session_id_uindex
   ON session (id);
+
 
 
 
