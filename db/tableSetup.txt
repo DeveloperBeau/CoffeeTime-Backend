@@ -18,10 +18,15 @@ CREATE TABLE "order"
   id         SERIAL  NOT NULL
     CONSTRAINT order_pkey
     PRIMARY KEY,
-  user_id    INTEGER NOT NULL,
-  session_id INTEGER NOT NULL,
+  user_id    INTEGER NOT NULL
+    CONSTRAINT order___fk_userid
+    REFERENCES "user",
+  session_id INTEGER NOT NULL
+    CONSTRAINT order___fk_sessionid
+    REFERENCES session,
   request    TEXT    NOT NULL
 );
+
 
 CREATE TABLE session
 (
