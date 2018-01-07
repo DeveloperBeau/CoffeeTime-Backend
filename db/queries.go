@@ -4,6 +4,6 @@ import (
 	"fmt"
 )
 
-func GetAllFromUser() string {
-	return fmt.Sprintf("select * from %s", UserTable())
+func getAllFromUser() string {
+	return fmt.Sprintf("select * from %s", userTable())
 }

@@ -7,11 +7,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// NewSQLHandler : Factory method generating SQLHandler struct
 func NewSQLHandler(connection string, isProduction bool) (*SQLHandler, error) {
 	db, err := sql.Open("postgres", connection)
-	qm := GetQueryManager(isProduction)
+	qm := getQueryManager(isProduction)
 	return &SQLHandler{
-		DB: db,
-		QueryManager: qm,
+		DB:           db,
+		queryManager: qm,
 	}, err
 }

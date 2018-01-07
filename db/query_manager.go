@@ -6,25 +6,25 @@ import (
 	"sync"
 )
 
-type QueryManager struct {
+type queryManager struct {
 	isProduction bool
 }
 
-var instance *QueryManager
+var instance *queryManager
 var once sync.Once
 
-func GetQueryManager(isProduction bool) *QueryManager {
+func getQueryManager(isProduction bool) *queryManager {
 	once.Do(func() {
-		instance = &QueryManager{isProduction: isProduction}
+		instance = &queryManager{isProduction: isProduction}
 	})
 	return instance
 }
 
-func (q QueryManager) getAllFromUserWithEmail(e string) string {
-	return GetAllFromUser() + whereClause(false, Where{field: "email", value: e})
+func (q queryManager) getAllFromUserWithEmail(e string) string {
+	return getAllFromUser() + whereClause(false, where{field: "email", value: e})
 }
 
-type Where struct {
+type where struct {
 	field string
 	value interface{}
 }
@@ -32,7 +32,7 @@ type Where struct {
 // whereClause:
 // variables: o - Optional, w - splice of where structs
 // this function returns a structured where extension for queries
-func whereClause(o bool, w ...Where) string {
+func whereClause(o bool, w ...where) string {
 	var buffer bytes.Buffer
 	buffer.WriteString(fmt.Sprintf(" where "))
 	for c, wc := range w {
