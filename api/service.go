@@ -54,7 +54,7 @@ func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, us
 
 func (sh serviceHandler) PostStartSession(ctx context.Context, handler db.Handler, sr postStartSessionRequest) (string, error) {
 	ns := model.Session{UserID: sr.UID, IsActive: true, Started: time.Now(), Orders: nil}
-	// TODO: Need to setup sending push notifications to devices. 
+	// TODO: Need to setup sending push notifications to devices.
 	res, err := handler.StartSession(ns)
 	return res, err
 }
