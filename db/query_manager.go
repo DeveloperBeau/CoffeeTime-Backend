@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"sync"
+	"CoffeeTime-Go/db/model"
 )
 
 type queryManager struct {
@@ -22,6 +23,14 @@ func getQueryManager(isProduction bool) *queryManager {
 
 func (q queryManager) getAllFromUserWithEmail(e string) string {
 	return getAllFromUser() + whereClause(false, where{field: "email", value: e})
+}
+
+func (q queryManager) getCurrentSession() string {
+	return getAllFromSession() + whereClause(false, where{field: "is_active", value: true})
+}
+
+func (q queryManager) getUserCurrentOrder(UID string, SID string) string {
+	return getAllFromOrder() + whereClause(false, where{field: "user_id", value: UID}, where{field: "session_id", value: SID})
 }
 
 type where struct {
