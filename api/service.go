@@ -35,6 +35,8 @@ var (
 	ErrNotFound = errors.New("Input error - Not found")
 	// ErrSessionNotFound : No Session is active
 	ErrSessionNotFound = errors.New("Session error - No session is active")
+    // ErrSomethingWentWrong : Generic issue error
+    ErrSomethingWentWrong = errors.New("Error - Something went wrong, please try again later")
 )
 
 type e interface {
