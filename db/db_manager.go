@@ -7,7 +7,7 @@ type Handler interface {
 	AddUser(model.User) error
 	StartSession(model.Session) (string, error)
 	EndSession(string) (error)
-	Session(string) *model.Session
+	Session() *model.Session
 	Order(model.Order) (string, error)
 }
 
