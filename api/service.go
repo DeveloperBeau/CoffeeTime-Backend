@@ -19,11 +19,11 @@ var (
 
 // Service : Service functions for each endpoint
 type Service interface {
-	PostNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error
-	PostStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) (string, error)
-	PostEndSession(ctx context.Context, handler db.Handler, session postEndSessionRequest) error
-	GetSession(ctx context.Context, handler db.Handler, session getSessionRequest) (interface{}, error)
-	PostOrder(ctx context.Context, handler db.Handler, session postOrderRequest) (*postOrderResponse, error)
+	postNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error
+	postStartSession(ctx context.Context, handler db.Handler, session postStartSessionRequest) (string, error)
+	postEndSession(ctx context.Context, handler db.Handler, session postEndSessionRequest) error
+	getSession(ctx context.Context, handler db.Handler, session getSessionRequest) (interface{}, error)
+	postOrder(ctx context.Context, handler db.Handler, session postOrderRequest) (*postOrderResponse, error)
 }
 
 var (
@@ -43,7 +43,7 @@ type e interface {
 
 type serviceHandler struct{}
 
-func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error {
+func (sh serviceHandler) postNewUser(ctx context.Context, handler db.Handler, user postNewUserRequest) error {
 	newUser := model.User{FirstName: user.FirstName, LastName: user.LastName, Email: user.Email, Token: user.Token}
 	err := handler.AddUser(newUser)
 	if err != nil {
@@ -52,19 +52,19 @@ func (sh serviceHandler) PostNewUser(ctx context.Context, handler db.Handler, us
 	return err
 }
 
-func (sh serviceHandler) PostStartSession(ctx context.Context, handler db.Handler, sr postStartSessionRequest) (string, error) {
+func (sh serviceHandler) postStartSession(ctx context.Context, handler db.Handler, sr postStartSessionRequest) (string, error) {
 	ns := model.Session{UserID: sr.UID, IsActive: true, Started: time.Now(), Orders: nil}
 	// TODO: Need to setup sending push notifications to devices.
 	res, err := handler.StartSession(ns)
 	return res, err
 }
 
-func (sh serviceHandler) PostEndSession(ctx context.Context, handler db.Handler, sr postEndSessionRequest) error {
+func (sh serviceHandler) postEndSession(ctx context.Context, handler db.Handler, sr postEndSessionRequest) error {
 	err := handler.EndSession(sr.UID)
 	return err
 }
 
-func (sh serviceHandler) GetSession(ctx context.Context, handler db.Handler, sr getSessionRequest) (interface{}, error) {
+func (sh serviceHandler) getSession(ctx context.Context, handler db.Handler, sr getSessionRequest) (interface{}, error) {
 	s := handler.Session(sr.UID)
 	if sr.UID == s.UserID {
 		gs := getGroupSessionResponse{SID: s.ID, Orders: s.Orders}
@@ -76,7 +76,7 @@ func (sh serviceHandler) GetSession(ctx context.Context, handler db.Handler, sr 
 	return nil, ErrSessionNotFound
 }
 
-func (sh serviceHandler) PostOrder(ctx context.Context, handler db.Handler, o postOrderRequest) (*postOrderResponse, error) {
+func (sh serviceHandler) postOrder(ctx context.Context, handler db.Handler, o postOrderRequest) (*postOrderResponse, error) {
 
 	order := o.Order
 	oID, e := handler.Order(order)

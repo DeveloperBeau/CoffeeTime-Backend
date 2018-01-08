@@ -40,31 +40,31 @@ func router(db db.Handler) (r *mux.Router) {
 	r = mux.NewRouter()
 	e := MakeServerEndpoints(s, db)
 	r.Methods(postMethod).Path(addUserPath).Handler(httptransport.NewServer(
-		e.PostNewUserEndpoint,
+		e.postNewUserEndpoint,
 		decodePostNewUserRequest,
 		encodeResponse,
 	))
 
 	r.Methods(postMethod).Path(startSessionPath).Handler(httptransport.NewServer(
-		e.PostStartSessionEndpoint,
+		e.postStartSessionEndpoint,
 		decodePostStartSessionRequest,
 		encodeResponse,
 	))
 
 	r.Methods(postMethod).Path(stopSessionPath).Handler(httptransport.NewServer(
-		e.PostEndSessionEndpoint,
+		e.postEndSessionEndpoint,
 		decodePostEndSessionRequest,
 		encodeResponse,
 	))
 
 	r.Methods(getMethod).Path(sessionPath).Handler(httptransport.NewServer(
-		e.GetSessionEndpoint,
+		e.getSessionEndpoint,
 		decodeGetSessionRequest,
 		encodeResponse,
 	))
 
 	r.Methods(postMethod).Path(orderPath).Handler(httptransport.NewServer(
-		e.PostOrderEndpoint,
+		e.postOrderEndpoint,
 		decodePostOrderRequest,
 		encodeResponse,
 	))

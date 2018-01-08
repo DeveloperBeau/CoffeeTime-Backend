@@ -13,20 +13,20 @@ const (
 	failed = "failed"
 )
 
-// MakePostNewUserEndpoint returns an endpoint via the New User service.
-func MakePostNewUserEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
+// makePostNewUserEndpoint returns an endpoint via the New User service.
+func makePostNewUserEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(postNewUserRequest)
-		e := s.PostNewUser(ctx, handler, req)
+		e := s.postNewUser(ctx, handler, req)
 		return postNewUserResponse{Err: e}, nil
 	}
 }
 
-// MakePostStartSessionEndpoint returns an endpoint via the New session service.
-func MakePostStartSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
+// makePostStartSessionEndpoint returns an endpoint via the New session service.
+func makePostStartSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(postStartSessionRequest)
-		sID, e := s.PostStartSession(ctx, handler, req)
+		sID, e := s.postStartSession(ctx, handler, req)
 		if e != nil {
 			return postStartSessionResponse{Err: e, Status: failed}, e
 		}
@@ -34,11 +34,11 @@ func MakePostStartSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoi
 	}
 }
 
-// MakePostEndSessionEndpoint returns an endpoint via the end session service.
-func MakePostEndSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
+// makePostEndSessionEndpoint returns an endpoint via the end session service.
+func makePostEndSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(postEndSessionRequest)
-		e := s.PostEndSession(ctx, handler, req)
+		e := s.postEndSession(ctx, handler, req)
 		if e != nil {
 			return postEndSessionResponse{Err: e, Status: failed}, e
 		}
@@ -46,20 +46,20 @@ func MakePostEndSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint
 	}
 }
 
-// MakeGetSessionEndpoint returns an endpoint via the session service.
-func MakeGetSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
+// makeGetSessionEndpoint returns an endpoint via the session service.
+func makeGetSessionEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(getSessionRequest)
-		se, e := s.GetSession(ctx, handler, req)
+		se, e := s.getSession(ctx, handler, req)
 		return se, e
 	}
 }
 
-// MakePostOrderEndpoint returns an endpoint via the order service.
-func MakePostOrderEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
+// makePostOrderEndpoint returns an endpoint via the order service.
+func makePostOrderEndpoint(s Service, handler db.Handler) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(postOrderRequest)
-		res, e := s.PostOrder(ctx, handler, req)
+		res, e := s.postOrder(ctx, handler, req)
 		return res, e
 	}
 }
