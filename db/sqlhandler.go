@@ -27,7 +27,7 @@ func (handler SQLHandler) AddUser(u model.User) error {
 	return err
 }
 
-// getUser : recieved e (email) and gets the user based on the email provided.
+// getUser : received e (email) and gets the user based on the email provided.
 func (handler *SQLHandler) getUser(e string) (*model.User, error) {
 	var user model.User
 	q := handler.queryManager.getAllFromUserWithEmail(e)
