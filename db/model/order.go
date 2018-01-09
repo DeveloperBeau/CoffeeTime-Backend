@@ -2,8 +2,8 @@ package model
 
 //Order data model
 type Order struct {
-	ID        int `json:"orderID"`
-	UserID    int `json:"userID"`
-	SessionID int `json:"sessionID"`
+	ID        string `json:"orderID"`
+	UserID    string `json:"userID"`
+	SessionID string `json:"sessionID"`
 	Request   string `json:"request"`
 }
