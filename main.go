@@ -1,16 +1,17 @@
 package main
 
 import (
-	"github.com/DeveloperBeau/CoffeeTime-Go/api"
-	"github.com/DeveloperBeau/CoffeeTime-Go/db"
 	"encoding/json"
 	"log"
 	"os"
+
+	"github.com/DeveloperBeau/CoffeeTime-Backend/api"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/db"
 )
 
 type configuration struct {
 	ServerAddress string `json:"webserver"`
-	isProduction bool `json:"isProduction"`
+	isProduction  bool   `json:"isProduction"`
 }
 
 func main() {

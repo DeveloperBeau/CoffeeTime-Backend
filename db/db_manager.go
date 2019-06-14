@@ -1,6 +1,6 @@
 package db
 
-import "github.com/DeveloperBeau/CoffeeTime-Go/db/model"
+import "github.com/DeveloperBeau/CoffeeTime-Backend/db/model"
 
 // Handler interface which allows other packages to use the database
 type Handler interface {

@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/DeveloperBeau/CoffeeTime-Go/db"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/db"
 	"net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"

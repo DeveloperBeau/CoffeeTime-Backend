@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/DeveloperBeau/CoffeeTime-Go/db"
-	"github.com/DeveloperBeau/CoffeeTime-Go/db/model"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/db"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/db/model"
 	"context"
 	"encoding/json"
 	"errors"

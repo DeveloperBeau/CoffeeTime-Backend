@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 
-	"github.com/DeveloperBeau/CoffeeTime-Go/db"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/db"
 
 	"github.com/go-kit/kit/endpoint"
 )

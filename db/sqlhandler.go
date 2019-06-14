@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/DeveloperBeau/CoffeeTime-Go/api"
-	"github.com/DeveloperBeau/CoffeeTime-Go/db/model"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/api"
+	"github.com/DeveloperBeau/CoffeeTime-Backend/db/model"
 )
 
 //SQLHandler : Generic DB handler struct

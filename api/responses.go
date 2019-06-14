@@ -1,6 +1,6 @@
 package api
 
-import "github.com/DeveloperBeau/CoffeeTime-Go/db/model"
+import "github.com/DeveloperBeau/CoffeeTime-Backend/db/model"
 
 //newUser Request struct
 type postNewUserRequest struct {
