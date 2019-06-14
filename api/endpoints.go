@@ -1,7 +1,7 @@
 package api
 
 import (
-	"CoffeeTime-Go/db"
+	"github.com/DeveloperBeau/CoffeeTime-Go/db"
 
 	"github.com/go-kit/kit/endpoint"
 )

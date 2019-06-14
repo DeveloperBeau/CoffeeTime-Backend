@@ -1,11 +1,12 @@
 package db
 
 import (
-	"CoffeeTime-Go/api"
-	"CoffeeTime-Go/db/model"
 	"database/sql"
 	"errors"
 	"fmt"
+
+	"github.com/DeveloperBeau/CoffeeTime-Go/api"
+	"github.com/DeveloperBeau/CoffeeTime-Go/db/model"
 )
 
 //SQLHandler : Generic DB handler struct

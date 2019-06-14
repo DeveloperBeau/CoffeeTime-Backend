@@ -1,16 +1,17 @@
 package api
 
 import (
-	"CoffeeTime-Go/db"
 	"context"
+
+	"github.com/DeveloperBeau/CoffeeTime-Go/db"
 
 	"github.com/go-kit/kit/endpoint"
 )
 
 const (
-	started = "started"
+	started  = "started"
 	finished = "finished"
-	failed = "failed"
+	failed   = "failed"
 )
 
 // makePostNewUserEndpoint returns an endpoint via the New User service.

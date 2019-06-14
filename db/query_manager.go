@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"sync"
-	"CoffeeTime-Go/db/model"
+	"github.com/DeveloperBeau/CoffeeTime-Go/db/model"
 )
 
 type queryManager struct {

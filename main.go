@@ -1,8 +1,8 @@
 package main
 
 import (
-	"CoffeeTime-Go/api"
-	"CoffeeTime-Go/db"
+	"github.com/DeveloperBeau/CoffeeTime-Go/api"
+	"github.com/DeveloperBeau/CoffeeTime-Go/db"
 	"encoding/json"
 	"log"
 	"os"
